@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>dharm.consult Voice AI</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: Arial;
+            background: #1a1a2e;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .box {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+        }
+        h1 { color: #1a1a2e; margin-bottom: 5px; }
+        p { color: gray; margin-bottom: 20px; }
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+            height: 120px;
+            margin-bottom: 15px;
+        }
+        select {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+        button {
+            width: 100%;
+            padding: 14px;
+            background: #6c63ff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        button:hover { background: #5a52d5; }
+        .success {
+            margin-top: 20px;
+            padding: 15px;
+            background: #e8f5e9;
+            border-radius: 8px;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h1>🤖 dharm.consult</h1>
+        <p>AI Voice Generator</p>
+
+        <form method="POST" action="/voice">
+            <textarea
+                name="text"
+                placeholder="Yahan text likho..."></textarea>
+
+            <select name="lang">
+                <option value="hi-female">Hindi — Female 🇮🇳</option>
+                <option value="hi-male">Hindi — Male 🇮🇳</option>
+                <option value="en-female">English — Female 🇬🇧</option>
+                <option value="en-male">English — Male 🇬🇧</option>
+                <option value="in-female">Indian English — Female</option>
+                <option value="in-male">Indian English — Male</option>
+            </select>
+
+            <button type="submit">🎙️ Voice Banao!</button>
+        </form>
+
+        {% if done %}
+        <div class="success">
+            <p>✅ Voice Ready Hai!</p>
+            <audio controls autoplay style="width:100%;margin-top:10px">
+                <source src="/static/output.mp3" type="audio/mpeg">
+            </audio>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
