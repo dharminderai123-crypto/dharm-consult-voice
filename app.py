@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request
 import edge_tts
 import asyncio
+import os
 
 app = Flask(__name__, template_folder='templates')
 
@@ -23,14 +24,15 @@ def voice():
     }
 
     selected_voice = voices.get(lang, "hi-IN-SwaraNeural")
+    os.makedirs("static", exist_ok=True)
 
     async def make_voice():
         communicate = edge_tts.Communicate(text, selected_voice)
         await communicate.save("static/output.mp3")
 
     asyncio.run(make_voice())
-
     return render_template("index.html", done=True)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port, debug=False)
